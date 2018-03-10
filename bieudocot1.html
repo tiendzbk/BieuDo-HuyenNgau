@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bieu do</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	<script src="Chart.min.js"></script>
+</head>
+<body>
+	<canvas id="bieudocot1" width="600" height="400"></canvas> 
+
+
+	<script> 
+		var barData = {	
+			labels : ["Thang 1","Thang 2","Thang 3","Thang 4","Thang 5","Thang 6"],
+			datasets : [
+			{
+				fillColor : "#FF1493",
+
+				data : [424,479,354,569,734,590]
+			},
+			{
+				fillColor : "#FF69B4",
+				
+				data : [360,546,612,420,325,311]
+			}
+			]
+		}	
+		var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");
+		new Chart(bieudocot1).Bar(barData);
+
+		// function addData(){
+		// 	var x =document.getElementById("inputThang").value;
+		// 	barData.labels[6]=x;
+		// }
+	</script>
+	<p>Nhap vào tháng : </p>
+	<input type="text" name="inputThang" id="inputThang">
+	<p>Nhập số liệu cho cột màu hồng đậm :</p>
+	<input type="number" name="inputCotHongDam" id="inputCotHongDam">
+	<p>Nhập số liệu cho cột màu hồng nhạt :</p>
+	<input type="number" name="inputCotHongNhat" id="inputCotHongNhat">
+
+	<button class="btn btn-primary" onclick="addData()">Thêm</button>
+	<script>
+		function addData(){
+			var x =document.getElementById("inputThang").value;
+			barData.labels[6]=x;
+			var y = document.getElementById("inputCotHongDam").value;
+			barData.datasets[0].data[6]=y;
+			var z = document.getElementById("inputCotHongNhat").value;
+			barData.datasets[1].data[6]=z;
+			var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");
+		    new Chart(bieudocot1).Bar(barData);
+		}
+	</script>
+</body>
+</html>
