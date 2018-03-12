@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ve bieu do cot</title> 
+	<title>Bieu do cot</title> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="Chart.min.js"></script>
+	<style>
+		canvas{
+			float: left;
+			margin-top: 50px;
+		}
+		.formAddData{
+			float: right;
+			margin-top: 50px;
+			margin-right: 200px;
+		}
+	</style>
 </head>
 <body>
 <canvas id="bieudocot1" width="600" height="400"></canvas> 
 
 
 <script> 
-var barData = {
-	
-	
+var barData = {	
 	labels : ["Thang 1","Thang 2","Thang 3","Thang 4","Thang 5","Thang 6"],
 	datasets : [
 		{
@@ -31,13 +40,55 @@ var barData = {
 		}
 
 		]
-	}
-	
+	}	
 	// gan cac gia tri o ben tren vao bieu do cot 1
 	var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");
 	
 	// ve bieu do cot
 	new Chart(bieudocot1).Bar(barData);
+</script>
+<div class="formAddData">
+	<p>Nhap vao thang can them :</p>
+	<input type="text" id="inputThang" name="inputThang" >
+	<p>Nhap gia tri cho cot hong dam : </p>
+	<input type="number" id="inputCotHongDam" name="inputCotHongDam">
+	<p>Nhap gia tri cho cot mau hong nhat :</p>
+	<input type="number" id="inputCotHongNhat" name="inputCotHongNhat"><br><br>
+	<button type="button" class="btn btn-primary" onclick="addData()" data-toggle="modal" data-target="#myModalNotification"> Them</button>
+</div>
+<!-- Modal -->
+<div id="myModalNotification" class="modal fade" role="dialog">
+	<div class="modal-dialog">	
+		<!-- Modal content-->
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Notification</h4>
+		</div>
+		<div class="modal-body">
+			<p>Data is added successfully!Thank you</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+		</div>
+		</div>	
+	</div>
+</div>
+
+<script>
+	function addData(){
+		var addMonth = document.getElementById("inputThang").value;
+		var addValueHongDam =document.getElementById("inputCotHongDam").value;
+		var addValueHongNhat=document.getElementById("inputCotHongNhat").value;
+		barData.labels.push(addMonth);
+		barData.datasets[0].data.push(addValueHongDam);
+		barData.datasets[1].data.push(addValueHongNhat);
+		// gan cac gia tri o ben tren vao bieu do cot 1
+		var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");
+		
+		// ve bieu do cot
+		new Chart(bieudocot1).Bar(barData);
+	}
 </script>
 </body>
 </html>
