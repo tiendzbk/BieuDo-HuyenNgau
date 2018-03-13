@@ -10,85 +10,139 @@
 	<script src="Chart.min.js"></script>
 	<style>
 		canvas{
-			float: left;
 			margin-top: 50px;
 		}
 		.formAddData{
-			float: right;
 			margin-top: 50px;
 			margin-right: 200px;
+		}
+		.modal-body{
+			height: 300px;
+		}
+		.addButton{
+			margin-left: 250px;
 		}
 	</style>
 </head>
 <body>
-<canvas id="bieudocot1" width="600" height="400"></canvas> 
-
-
-<script> 
-var barData = {	
-	labels : ["Thang 1","Thang 2","Thang 3","Thang 4","Thang 5","Thang 6"],
-	datasets : [
-		{
-			fillColor : "#FF1493",
-
-			data : [424,479,354,569,734,590]
-		},
-		{
-			fillColor : "#FF69B4",
-			
-			data : [360,546,612,420,325,311]
-		}
-
-		]
-	}	
-	// gan cac gia tri o ben tren vao bieu do cot 1
-	var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");
-	
-	// ve bieu do cot
-	new Chart(bieudocot1).Bar(barData);
-</script>
-<div class="formAddData">
-	<p>Nhap vao thang can them :</p>
-	<input type="text" id="inputThang" name="inputThang" >
-	<p>Nhap gia tri cho cot hong dam : </p>
-	<input type="number" id="inputCotHongDam" name="inputCotHongDam">
-	<p>Nhap gia tri cho cot mau hong nhat :</p>
-	<input type="number" id="inputCotHongNhat" name="inputCotHongNhat"><br><br>
-	<button type="button" class="btn btn-primary" onclick="addData()" data-toggle="modal" data-target="#myModalNotification"> Them</button>
-</div>
-<!-- Modal -->
-<div id="myModalNotification" class="modal fade" role="dialog">
-	<div class="modal-dialog">	
-		<!-- Modal content-->
-		<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Notification</h4>
-		</div>
-		<div class="modal-body">
-			<p>Data is added successfully!Thank you</p>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-		</div>
-		</div>	
-	</div>
-</div>
-
-<script>
-	function addData(){
-		var addMonth = document.getElementById("inputThang").value;
-		var addValueHongDam =document.getElementById("inputCotHongDam").value;
-		var addValueHongNhat=document.getElementById("inputCotHongNhat").value;
-		barData.labels.push(addMonth);
-		barData.datasets[0].data.push(addValueHongDam);
-		barData.datasets[1].data.push(addValueHongNhat);
+	<canvas id="bieudocot1" width="600" height="400"></canvas> <br><br>
+	<script> 
+		var barData = {	
+		labels : ["Thang 1","Thang 2","Thang 3","Thang 4","Thang 5","Thang 6"],
+			datasets : [
+				{
+					fillColor : "#FF1493",
+					data : [424,479,354,569,734,590]
+				},
+				{
+					fillColor : "#FF69B4",			
+					data : [360,546,612,420,325,311]
+				}
+			]
+		}	
 		// gan cac gia tri o ben tren vao bieu do cot 1
 		var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");
-		
 		// ve bieu do cot
 		new Chart(bieudocot1).Bar(barData);
-	}
-</script>
+	</script>
+	<button type="button" class="btn btn-primary btn-lg addButton" data-toggle="modal" data-target="#myModalAddData"> Add</button>
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalDeleteData">Del</button>
+	<!-- Modal Add Data-->
+	<div id="myModalAddData" class="modal fade" role="dialog">
+		<div class="modal-dialog">	
+			<!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class="formAddData">
+					<p>Nhap vao thang can them :</p>
+					<input type="text" id="inputThang" name="inputThang" >
+					<p>Nhap gia tri cho cot hong dam : </p>
+					<input type="number" id="inputCotHongDam" name="inputCotHongDam">
+					<p>Nhap gia tri cho cot mau hong nhat :</p>
+					<input type="number" id="inputCotHongNhat" name="inputCotHongNhat">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addData()" data-toggle="modal" data-target="#myModalNotificationSuccess">OK</button>
+			</div>
+			</div>	
+		</div>
+	</div>
+
+	<!-- Modal Delete Data-->
+	<div id="myModalDeleteData" class="modal fade" role="dialog">
+		<div class="modal-dialog">	
+			<!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Delete Data</h4>
+			</div>
+			<div class="modal-body">
+				<div class="formAddData">
+					<p>Nhap vao thang can xoa :</p>
+					<input type="text" id="deleteThang" name="deleteThang" >
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Xoa</button>
+			</div>
+			</div>	
+		</div>
+	</div>
+
+
+	<!-- Modal notification successful-->
+	<div id="myModalNotificationSuccess" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Notification</h4>
+				</div>
+				<div class="modal-body">
+					<p>your data is added successful!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div> 
+		</div>
+	</div>
+
+
+	<script>
+		function addData(){
+			var addMonth = document.getElementById("inputThang").value;
+			var addValueHongDam =document.getElementById("inputCotHongDam").value;
+			var addValueHongNhat=document.getElementById("inputCotHongNhat").value;
+			barData.labels.push(addMonth);
+			barData.datasets[0].data.push(addValueHongDam);
+			barData.datasets[1].data.push(addValueHongNhat);
+			// gan cac gia tri o ben tren vao bieu do cot 1
+			var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");		
+			// ve bieu do cot
+			new Chart(bieudocot1).Bar(barData);
+		}
+		function deleteData(){
+			var deleteMonth = document.getElementById("deleteThang").value;
+			for(var i =0 ; i < barData.labels.length; i++){
+				if(barData.labels[i]===deleteMonth){
+					barData.labels.splice(i,1);
+					barData.datasets[0].data.splice(i,1);
+					barData.datasets[1].data.splice(i,1);
+				}
+			}
+			// gan cac gia tri o ben tren vao bieu do cot 1
+			var bieudocot1 = document.getElementById("bieudocot1").getContext("2d");		
+			// ve bieu do cot
+			new Chart(bieudocot1).Bar(barData);
+		}
+	</script>
 </body>
 </html>
